@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <style>
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        li {
+            list-style: none;
+            display: flex;
+            font-size: 16px;
+            margin: 0 180px;
+        }
+
+        li img {
+            margin: 10px 10px 10px 10px;
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+
+    <div class="container"></div>
+
+    <script>
+        (async () => {
+            // abrir o arquivo de dados (json)
+            const response = await fetch('./instagram.json');
+            const data = await response.json();
+
+            //formatar os dados para enviar para o html
+            const htmlList = data
+                .map(img => `
+                    <li>
+                        <img src="${img.src}">
+                        <p>${img.alt}</p>
+                    </li>
+                    `)
+                .join('');
+
+            //colocar no html
+            document.querySelector('.container').innerHTML = htmlList;
+        })()
+    </script>
+</body>
+
+</html>
